@@ -4,7 +4,8 @@ const contacts = require("../../models/contacts.js");
 
 const contactsRouter = express.Router();
 
-const { HttpErr, addContactValidation } = require("../../Utils");
+const { HttpErr } = require("../../helpers");
+const addContactValidation = require("../../Schemas");
 
 contactsRouter.get("/", async (req, res, next) => {
   try {
@@ -32,7 +33,7 @@ contactsRouter.post("/", async (req, res, next) => {
   try {
     const { body } = req;
     if (!Object.keys(body).length) {
-      throw HttpErr(400, "all fields are required");
+      throw HttpErr(400, "missing fields");
     }
     addContactValidation(body);
     const result = await contacts.addContact(body);
@@ -59,16 +60,15 @@ contactsRouter.delete("/:id", async (req, res, next) => {
 contactsRouter.put("/:id", async (req, res, next) => {
   try {
     if (!Object.keys(req.body).length) {
-      throw HttpErr(400, "all fields are required");
+      throw HttpErr(400, "missing fields");
     }
     addContactValidation(req.body);
     const { id } = req.params;
-    console.log(req.params);
     const contact = await contacts.updateContact(id, req.body);
     if (!contact) {
       throw HttpErr(404, "Not found");
     }
-    res.status(201).json(contact);
+    res.status(200).json(contact);
   } catch (error) {
     next(error);
   }
