@@ -1,6 +1,5 @@
-const schemas = require('../schemas')
+const schemas = require("../schemas");
 const HttpErr = require("../helpers/HttpErr");
-
 
 const validationBody = (dataToValidate) => {
   const validateData = schemas.validateSchema.validate(dataToValidate);
