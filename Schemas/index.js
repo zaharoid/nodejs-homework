@@ -1,3 +1,5 @@
-const addContactValidation = require("./Schemes");
+const validateSchema = require("./contactsSchema");
 
-module.exports = addContactValidation;
+module.exports = {
+  validateSchema,
+};
