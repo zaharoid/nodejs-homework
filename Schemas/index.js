@@ -1,4 +1,4 @@
-const validateSchema = require("./contactsSchema");
+const validateSchema = require("./contacts");
 
 module.exports = {
   validateSchema,

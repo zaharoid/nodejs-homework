@@ -1,13 +1,15 @@
-const schemas = require("../schemas");
 const HttpErr = require("../helpers/HttpErr");
 
-const validationBody = (dataToValidate) => {
-  const validateData = schemas.validateSchema.validate(dataToValidate);
-  const errorMsg = validateData.error?.message;
-  if (!errorMsg) {
-    return;
-  }
-  throw HttpErr(400, errorMsg);
+const validationBody = (validateSchema) => {
+  const fn = (req, res, next) => {
+    const validateData = validateSchema.validate(req.body);
+    console.log(validateData);
+    if (validateData.error?.message) {
+      throw HttpErr(400, validateData.error?.message);
+    }
+    next();
+  };
+  return fn;
 };
 
 module.exports = validationBody;

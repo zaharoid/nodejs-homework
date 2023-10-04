@@ -1,9 +1,9 @@
 const Joi = require("joi");
 
 const validateSchema = Joi.object({
-  name: Joi.string()
-    .required()
-    .messages({ "any.required": 'missing required "name" field' }),
+  name: Joi.string().required().messages({
+    "any.required": 'missing required "name" field',
+  }),
   email: Joi.string()
     .email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } })
     .required()

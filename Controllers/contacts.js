@@ -1,6 +1,5 @@
 const contacts = require("../models/contacts.js");
 const { HttpErr, ctrlWrapper } = require("../helpers");
-const validationBody = require("../middlewares/index.js");
 
 const getAllContacts = async (req, res, next) => {
   const result = await contacts.listContacts();
@@ -21,7 +20,7 @@ const createContact = async (req, res, next) => {
   if (!Object.keys(body).length) {
     throw HttpErr(400, "missing fields");
   }
-  validationBody(body);
+
   const result = await contacts.addContact(body);
   res.status(201).json(result);
 };
@@ -39,7 +38,7 @@ const updateContact = async (req, res, next) => {
   if (!Object.keys(req.body).length) {
     throw HttpErr(400, "missing fields");
   }
-  validationBody(req.body);
+
   const { id } = req.params;
   const contact = await contacts.updateContact(id, req.body);
   if (!contact) {
