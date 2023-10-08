@@ -1,11 +1,14 @@
 import express from "express";
-import { validationBody, isEmptyBody } from "../../middlewares/index.js";
+import {
+  validationBody,
+  isEmptyBody,
+  isValidId,
+} from "../../middlewares/index.js";
 import {
   validateSchema,
   contactUpdateFavoriteSchema,
 } from "../../models/Contact.js";
 import ctrl from "../../controllers/contacts.js";
-import { isValidId } from "../../middlewares/index.js";
 
 const contactAddValidate = validationBody(validateSchema);
 const contactUpdateFavoriteValidate = validationBody(
