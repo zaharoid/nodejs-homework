@@ -14,7 +14,6 @@ const contactAddValidate = validationBody(validateSchema);
 const contactUpdateFavoriteValidate = validationBody(
   contactUpdateFavoriteSchema
 );
-
 const contactsRouter = express.Router();
 
 contactsRouter.get("/", ctrl.getAllContacts);

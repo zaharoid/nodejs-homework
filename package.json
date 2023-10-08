@@ -9,9 +9,6 @@
     "lint": "eslint **/*.js",
     "lint:fix": "eslint --fix **/*.js"
   },
-  "engines": {
-    "node": ">18.16.1"
-  },
   "dependencies": {
     "cors": "2.8.5",
     "cross-env": "7.0.3",
@@ -29,5 +26,8 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "5.2.0",
     "nodemon": "2.0.15"
+  },
+  "engines": {
+    "node": ">18.16.1"
   }
 }
