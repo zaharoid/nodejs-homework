@@ -4,7 +4,7 @@ import {
   isEmptyBody,
   isValidId,
 } from "../../middlewares/index.js";
-import ctrl from "../../controllers/movies-controller";
+import ctrl from "../../controllers/index.js";
 import {
   validateSchema,
   contactUpdateFavoriteSchema,
