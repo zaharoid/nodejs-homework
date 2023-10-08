@@ -8,7 +8,7 @@ import {
   validateSchema,
   contactUpdateFavoriteSchema,
 } from "../../models/Contact.js";
-import ctrl from "../../controllers/contacts.js";
+import ctrl from "../../controllers/movies-controller.js";
 
 const contactAddValidate = validationBody(validateSchema);
 const contactUpdateFavoriteValidate = validationBody(
