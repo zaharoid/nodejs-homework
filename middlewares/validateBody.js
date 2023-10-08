@@ -1,9 +1,8 @@
-const HttpErr = require("../helpers/HttpErr");
+import { HttpErr } from "../helpers/index.js";
 
 const validationBody = (validateSchema) => {
   const fn = (req, res, next) => {
     const validateData = validateSchema.validate(req.body);
-    console.log(validateData);
     if (validateData.error?.message) {
       throw HttpErr(400, validateData.error?.message);
     }
@@ -12,4 +11,4 @@ const validationBody = (validateSchema) => {
   return fn;
 };
 
-module.exports = validationBody;
+export default validationBody;

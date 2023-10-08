@@ -1,14 +1,14 @@
-const contacts = require("../models/contacts.js");
-const { HttpErr, ctrlWrapper } = require("../helpers");
+import { ctrlWrapper, HttpErr } from "../helpers/index.js";
+import Contact from "../models/Contact.js";
 
 const getAllContacts = async (req, res, next) => {
-  const result = await contacts.listContacts();
-  res.status(200).json(result);
+  const result = await Contact.find({}, "-createdAt -updatedAt");
+  res.json(result);
 };
 
 const getContactById = async (req, res, next) => {
   const { id } = req.params;
-  const result = await contacts.getContactById(id);
+  const result = await Contact.findById(id);
   if (!result) {
     throw HttpErr(404);
   }
@@ -16,41 +16,42 @@ const getContactById = async (req, res, next) => {
 };
 
 const createContact = async (req, res, next) => {
-  const { body } = req;
-  if (!Object.keys(body).length) {
-    throw HttpErr(400, "missing fields");
-  }
-
-  const result = await contacts.addContact(body);
+  const result = await Contact.create(req.body);
   res.status(201).json(result);
 };
 
 const deleteContact = async (req, res, next) => {
   const { id } = req.params;
-  const result = await contacts.removeContact(id);
+  const result = await Contact.findByIdAndDelete(id);
   if (!result) {
-    throw HttpErr(404, "Not found");
+    throw HttpErr(404);
   }
   res.status(200).json({ message: "contact deleted" });
 };
 
 const updateContact = async (req, res, next) => {
-  if (!Object.keys(req.body).length) {
-    throw HttpErr(400, "missing fields");
-  }
-
   const { id } = req.params;
-  const contact = await contacts.updateContact(id, req.body);
+  const contact = await Contact.findByIdAndUpdate(id, req.body);
   if (!contact) {
-    throw HttpErr(404, "Not found");
+    throw HttpErr(404);
   }
   res.status(200).json(contact);
 };
 
-module.exports = {
+const updateStatusContact = async (req, res, next) => {
+  const { id } = req.params;
+  const contact = await Contact.findByIdAndUpdate(id, req.body);
+  if (!contact) {
+    throw HttpErr(404);
+  }
+  res.status(200).json(contact);
+};
+
+export default {
   getAllContacts: ctrlWrapper(getAllContacts),
   getContactById: ctrlWrapper(getContactById),
   createContact: ctrlWrapper(createContact),
   deleteContact: ctrlWrapper(deleteContact),
+  updateStatusContact: ctrlWrapper(updateStatusContact),
   updateContact: ctrlWrapper(updateContact),
 };

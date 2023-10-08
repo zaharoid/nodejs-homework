@@ -1,3 +1,5 @@
-const ctrl = require("./contacts");
+// const ctrl = require("./contacts");
 
-module.exports = ctrl;
+export { default } from "./contacts";
+
+// module.exports = ctrl;

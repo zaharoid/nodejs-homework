@@ -1,9 +1,3 @@
-const HttpErr = require("./HttpErr");
-const addToDb = require("./AddToDb");
-const ctrlWrapper = require("./ctrlWrapper");
+export { default as HttpErr } from "./HttpErr.js";
 
-module.exports = {
-  HttpErr,
-  addToDb,
-  ctrlWrapper,
-};
+export { default as ctrlWrapper } from "./ctrlWrapper.js";
