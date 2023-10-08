@@ -4,11 +4,11 @@ import {
   isEmptyBody,
   isValidId,
 } from "../../middlewares/index.js";
+import ctrl from "../../controllers/movies-controller";
 import {
   validateSchema,
   contactUpdateFavoriteSchema,
 } from "../../models/Contact.js";
-import ctrl from "../../controllers/movies-controller";
 const contactAddValidate = validationBody(validateSchema);
 const contactUpdateFavoriteValidate = validationBody(
   contactUpdateFavoriteSchema
