@@ -9,17 +9,19 @@ import {
   validateSchema,
   contactUpdateFavoriteSchema,
 } from "../../models/Contact.js";
-const contactAddValidate = validationBody(validateSchema);
-const contactUpdateFavoriteValidate = validationBody(
-  contactUpdateFavoriteSchema
-);
+
 const contactsRouter = express.Router();
 
 contactsRouter.get("/", ctrl.getAllContacts);
 
 contactsRouter.get("/:id", isValidId, ctrl.getContactById);
 
-contactsRouter.post("/", isEmptyBody, contactAddValidate, ctrl.createContact);
+contactsRouter.post(
+  "/",
+  isEmptyBody,
+  validationBody(validateSchema),
+  ctrl.createContact
+);
 
 contactsRouter.delete("/:id", isValidId, ctrl.deleteContact);
 
@@ -27,13 +29,13 @@ contactsRouter.put(
   "/:id",
   isValidId,
   isEmptyBody,
-  contactAddValidate,
+  validationBody(validateSchema),
   ctrl.updateContact
 );
 contactsRouter.patch(
   "/:id/favorite",
   isValidId,
-  contactUpdateFavoriteValidate,
+  validationBody(contactUpdateFavoriteSchema),
   ctrl.updateStatusContact
 );
 
