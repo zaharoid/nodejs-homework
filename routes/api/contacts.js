@@ -3,6 +3,7 @@ import {
   validationBody,
   isEmptyBody,
   isValidId,
+  authenticate,
 } from "../../middlewares/index.js";
 import ctrl from "../../controllers/contacts.js";
 import {
@@ -11,6 +12,7 @@ import {
 } from "../../models/Contact.js";
 
 const contactsRouter = express.Router();
+contactsRouter.use(authenticate);
 
 contactsRouter.get("/", ctrl.getAllContacts);
 
