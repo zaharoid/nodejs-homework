@@ -95,7 +95,6 @@ const updateAvatar = async (req, res, next) => {
 
   Jimp.read(newPath, (err, avatar) => {
     if (err) throw err;
-    console.log(avatar);
     avatar.resize(250, 250).write(newPath);
   });
 
