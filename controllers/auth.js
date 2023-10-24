@@ -31,7 +31,7 @@ const signup = async (req, res) => {
   res.status(201).json({
     user: {
       email,
-      subscription: subscription,
+      subscription,
     },
   });
 };
@@ -96,7 +96,7 @@ const updateAvatar = async (req, res, next) => {
   Jimp.read(newPath, (err, avatar) => {
     if (err) throw err;
     console.log(avatar);
-    avatar.resize(250, 250);
+    avatar.resize(250, 250).write(newPath);
   });
 
   await User.findByIdAndUpdate(_id, { avatarURL });
