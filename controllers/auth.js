@@ -88,13 +88,16 @@ const updateAvatar = async (req, res, next) => {
 
   const { path: oldPath, filename } = req.file;
 
-  const avatar = await Jimp.read(oldPath);
-  avatar.resize(250, 250);
-
   const newPath = path.join(avatarsPath, filename);
 
   await fs.rename(oldPath, newPath);
   const avatarURL = path.join("/avatars", filename);
+
+  Jimp.read(newPath, (err, avatar) => {
+    if (err) throw err;
+    console.log(avatar);
+    avatar.resize(250, 250);
+  });
 
   await User.findByIdAndUpdate(_id, { avatarURL });
 
