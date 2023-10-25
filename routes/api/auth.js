@@ -4,6 +4,8 @@ import {
   validationBody,
   isEmptyBody,
   authenticate,
+  upload,
+  isEmptyFileBody,
 } from "../../middlewares/index.js";
 import {
   userValidationSchema,
@@ -36,6 +38,14 @@ authRouter.patch(
   isEmptyBody,
   validationBody(userSubscriptionValidationSchema),
   authController.updateSubscription
+);
+
+authRouter.patch(
+  "/avatars",
+  authenticate,
+  upload.single("avatar"),
+  isEmptyFileBody,
+  authController.updateAvatar
 );
 
 export default authRouter;
