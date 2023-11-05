@@ -10,6 +10,7 @@ import {
 import {
   userValidationSchema,
   userSubscriptionValidationSchema,
+  userEmailValidation,
 } from "../../models/User.js";
 
 const authRouter = express.Router();
@@ -31,6 +32,14 @@ authRouter.post(
 authRouter.post("/logout", authenticate, authController.logout);
 
 authRouter.get("/current", authenticate, authController.getCurrent);
+
+authRouter.get("/verify/:verificationToken", authController.verify);
+
+authRouter.post(
+  "/verify",
+  validationBody(userEmailValidation),
+  authController.resendVerify
+);
 
 authRouter.patch(
   "",
